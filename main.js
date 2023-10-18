@@ -40,10 +40,25 @@ class BinarySearchTree {
         }
     }
 }
-  
+
+const prettyPrint = (node, prefix = "", isLeft = true) => {
+  if (node === null) {
+    return;
+  }
+  if (node.right !== null) {
+    prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+  }
+  console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.value}`);
+  if (node.left !== null) {
+    prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+  }
+};
+
 const bst = new BinarySearchTree()
 
 console.log(bst.isEmpty())
 bst.insert(10)
 bst.insert(5)
 bst.insert(15)
+
+prettyPrint(bst.root)

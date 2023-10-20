@@ -41,17 +41,62 @@ class BinarySearchTree {
   }
 
   search(root, value) {
-    if(!root) {
-      return false;
+    if (!root) {
+      return "Not Found";
     } else {
-      if(root.value===value) {
-        return true
-      } else if(root.value<value) {
-        return this.search(root.right, value)
+      if (root.value === value) {
+        return root;
+      } else if (root.value < value) {
+        return this.search(root.right, value);
       } else {
-        return this.search(root.left, value)
+        return this.search(root.left, value);
       }
     }
+  }
+  preOrder(root) {
+    const result = [];
+    
+    function traverse(node) {
+        if (node) {
+            result.push(node.value);
+            traverse(node.left);
+            traverse(node.right);
+        }
+    }
+    
+    traverse(root);
+    
+    return result;
+}
+  inOrder(root) {
+    const result = [];
+    
+    function traverse(node) {
+        if (node) {
+            traverse(node.left);
+            result.push(node.value);
+            traverse(node.right);
+        }
+    }
+    
+    traverse(root);
+    
+    return result;
+  }
+  postOrder(root) {
+    const result = [];
+    
+    function traverse(node) {
+        if (node) {
+            traverse(node.left);
+            traverse(node.right);
+            result.push(node.value);
+        }
+    }
+    
+    traverse(root);
+    
+    return result;
   }
 }
 
@@ -75,10 +120,20 @@ bst.insert(10);
 bst.insert(5);
 bst.insert(15);
 bst.insert(6);
+bst.insert(12);
+bst.insert(3);
+bst.insert(20);
 
-prettyPrint(bst.root); 
-// │   ┌── 15
-// └── 10
-//     │   ┌── 6
-//     └── 5
-console.log(bst.search(bst.root, 6)) // true
+prettyPrint(bst.root);
+//  │       ┌── 20
+//  │   ┌── 15
+//  │   │   └── 12
+//  └── 10
+//      │   ┌── 6
+//      └── 5
+//          └── 3
+console.log(bst.search(bst.root, 6)) // Node { value: 6, left: null, right: null }
+console.log(bst.search(bst.root,11)) // Not Found
+console.log(bst.preOrder(bst.root)) // [10,  5,  3, 6, 15, 12, 20]
+console.log(bst.inOrder(bst.root)) // [3,  5,  6, 10, 12, 15, 20]
+console.log(bst.postOrder(bst.root)) // [3,  6,  5, 12, 20, 15, 10]

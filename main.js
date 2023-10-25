@@ -98,6 +98,23 @@ class BinarySearchTree {
     
     return result;
   }
+
+  levelOrder() {
+    const queue = []
+    let values = []
+    queue.push(this.root)
+    while(queue.length) {
+      let current = queue.shift()
+      values.push(current.value)
+      if (current.left) {
+        queue.push(current.left)
+      }
+      if (current.right) {
+        queue.push(current.right)
+      }
+    }
+    return values
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -137,3 +154,4 @@ console.log(bst.search(bst.root,11)) // Not Found
 console.log(bst.preOrder(bst.root)) // [10,  5,  3, 6, 15, 12, 20]
 console.log(bst.inOrder(bst.root)) // [3,  5,  6, 10, 12, 15, 20]
 console.log(bst.postOrder(bst.root)) // [3,  6,  5, 12, 20, 15, 10]
+console.log(bst.levelOrder()) // [ 10,  5, 15, 3, 6, 12, 20]

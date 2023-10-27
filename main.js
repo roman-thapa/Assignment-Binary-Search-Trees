@@ -115,6 +115,20 @@ class BinarySearchTree {
     }
     return values
   }
+
+  min(root) {
+    if(!root.left) {
+      return root.value
+    }
+    return this.min(root.left)
+  }
+
+  max(root) {
+    if(!root.right) {
+      return root.value
+    }
+    return this.max(root.right)
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -155,3 +169,5 @@ console.log(bst.preOrder(bst.root)) // [10,  5,  3, 6, 15, 12, 20]
 console.log(bst.inOrder(bst.root)) // [3,  5,  6, 10, 12, 15, 20]
 console.log(bst.postOrder(bst.root)) // [3,  6,  5, 12, 20, 15, 10]
 console.log(bst.levelOrder()) // [ 10,  5, 15, 3, 6, 12, 20]
+console.log(bst.min(bst.root)) // 3
+console.log(bst.max(bst.root)) // 20
